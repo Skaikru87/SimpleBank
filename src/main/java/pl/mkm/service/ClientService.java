@@ -52,6 +52,7 @@ public class ClientService {
         }
         client.setBirthDate(formattedDate);
         client.setRights(false);
+        cin.close();
         return client;
     }
 

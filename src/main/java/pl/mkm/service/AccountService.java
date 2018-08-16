@@ -3,6 +3,7 @@ package pl.mkm.service;
 import pl.mkm.data.Account;
 import pl.mkm.data.AccountStore;
 import pl.mkm.data.Client;
+import pl.mkm.data.ClientStore;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -14,7 +15,9 @@ import java.util.Scanner;
 
 public class AccountService {
 
-    public void saveAccount(Account account, AccountStore accountStore, File accountFile) {
+    public static File accountFile = new File("accountFile.xml");
+
+    public void saveAccount(Account account, AccountStore accountStore) {
         accountStore.addAccount(account);
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(AccountStore.class);
@@ -26,22 +29,23 @@ public class AccountService {
         }
     }
 
-    public Account createNewAccount() {
+    public Account createNewAccount(ClientStore clientStore) {
         Scanner cin = new Scanner(System.in);
         Account account = new Account();
         System.out.print("account number:");
         account.setAccountNumber(cin.nextInt());
         System.out.print("balance: ");
         account.setBalance(cin.nextDouble());
-        System.out.println("Owner");
+        System.out.println("Owner:");
         ClientService clientService = new ClientService();
         Client client = clientService.createNewClient();
+        clientService.saveClient(client, clientStore);
         account.setOwner(client);
         cin.close();
         return account;
     }
 
-    public AccountStore loadAccountStore(File accountFile) {
+    public AccountStore loadAccountStore() {
 
         if (!accountFile.exists()) {
             try {

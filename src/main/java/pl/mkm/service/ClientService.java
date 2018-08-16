@@ -8,6 +8,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,8 +16,11 @@ import java.util.Scanner;
 
 public class ClientService {
 
-    public  void saveClient(Client client, ClientStore clientStore, File clientFile) {
-        clientStore.addClient(client);
+    private static File clientFile = new File("clientFile.xml");
+
+
+    public void saveClient(Client client, ClientStore clientStore) {
+
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(ClientStore.class);
             Marshaller marshaller = jaxbContext.createMarshaller();
@@ -56,14 +60,24 @@ public class ClientService {
         return client;
     }
 
-    public ClientStore loadClientStore(File clientFile) {
+    public ClientStore loadClientStore() {
+        if (!clientFile.exists()) {
+            try {
+                clientFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         ClientStore clientStore = null;
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(ClientStore.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             clientStore = (ClientStore) unmarshaller.unmarshal(clientFile);
         } catch (JAXBException e) {
-            e.printStackTrace();
+            System.out.println("No clients yet");
+        }
+        if (clientStore == null) {
+            clientStore = new ClientStore();
         }
         return clientStore;
     }

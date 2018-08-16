@@ -41,7 +41,6 @@ public class AccountService {
         Client client = clientService.createNewClient();
         clientService.saveClient(client, clientStore);
         account.setOwner(client);
-        cin.close();
         return account;
     }
 

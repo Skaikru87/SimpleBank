@@ -18,7 +18,6 @@ public class ClientService {
 
     private static File clientFile = new File("clientFile.xml");
 
-
     public void saveClient(Client client, ClientStore clientStore) {
 
         try {
@@ -56,7 +55,6 @@ public class ClientService {
         }
         client.setBirthDate(formattedDate);
         client.setRights(false);
-        cin.close();
         return client;
     }
 

@@ -17,7 +17,7 @@ public class AccountService {
 
     public static File accountFile = new File("accountFile.xml");
 
-    public void saveAccount(Account account, AccountStore accountStore) {
+    public static void saveAccount(Account account, AccountStore accountStore) {
         accountStore.addAccount(account);
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(AccountStore.class);
@@ -29,7 +29,7 @@ public class AccountService {
         }
     }
 
-    public Account createNewAccount(ClientStore clientStore) {
+    public static Account createNewAccount(ClientStore clientStore) {
         Scanner cin = new Scanner(System.in);
         Account account = new Account();
         System.out.print("account number:");
@@ -37,14 +37,13 @@ public class AccountService {
         System.out.print("balance: ");
         account.setBalance(cin.nextDouble());
         System.out.println("Owner:");
-        ClientService clientService = new ClientService();
-        Client client = clientService.createNewClient();
-        clientService.saveClient(client, clientStore);
+        Client client = ClientService.createNewClient();
+        ClientService.saveClient(client, clientStore);
         account.setOwner(client);
         return account;
     }
 
-    public AccountStore loadAccountStore() {
+    public static AccountStore loadAccountStore() {
 
         if (!accountFile.exists()) {
             try {

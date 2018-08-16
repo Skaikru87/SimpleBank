@@ -18,7 +18,7 @@ public class ClientService {
 
     private static File clientFile = new File("clientFile.xml");
 
-    public void saveClient(Client client, ClientStore clientStore) {
+    public static void saveClient(Client client, ClientStore clientStore) {
 
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(ClientStore.class);
@@ -33,7 +33,7 @@ public class ClientService {
         }
     }
 
-    public Client createNewClient() {
+    public static Client createNewClient() {
         Client client = new Client();
         Scanner cin = new Scanner(System.in);
         System.out.print("first name: ");
@@ -58,7 +58,7 @@ public class ClientService {
         return client;
     }
 
-    public ClientStore loadClientStore() {
+    public static ClientStore loadClientStore() {
         if (!clientFile.exists()) {
             try {
                 clientFile.createNewFile();

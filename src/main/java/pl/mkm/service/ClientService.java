@@ -1,5 +1,7 @@
 package pl.mkm.service;
 
+import pl.mkm.data.Account;
+import pl.mkm.data.AccountStore;
 import pl.mkm.data.Client;
 import pl.mkm.data.ClientStore;
 
@@ -11,7 +13,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class ClientService {
@@ -79,4 +83,19 @@ public class ClientService {
         }
         return clientStore;
     }
+
+    public static void displayClientStore() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        ClientStore clientStore = loadClientStore();
+        List<Client> clients = clientStore.getClients();
+        clients.stream()
+                .sorted(Comparator.comparing(Client::getLastName))
+                .forEach(e -> System.out.println(e.getLastName()
+                        + " " + e.getFirstName()
+                        + " " + e.getLogin()
+                        + " " + simpleDateFormat.format(e.getBirthDate())
+                ));
+    }
+
+
 }

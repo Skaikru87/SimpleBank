@@ -59,11 +59,11 @@ public class MenuService {
                     System.out.println("what you want to do?");
                     break;
                 case 3:
-                    //TODO
+                    ClientService.displayClientStore();
                     System.out.println("what you want to do?");
                     break;
                 case 4:
-                    //TODO
+                    AccountService.displayAccountStore();
                     System.out.println("what you want to do?");
                     break;
                 case 5:
@@ -89,11 +89,11 @@ public class MenuService {
             int choice = in.nextInt();
             switch (choice) {
                 case 1:
-                    //TODO
+                    ClientService.displayClientStore();
                     System.out.println("what you want to do?");
                     break;
                 case 2:
-                    //TODO
+                    AccountService.displayAccountStore();
                     System.out.println("what you want to do?");
                     break;
                 case 3:

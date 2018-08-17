@@ -11,6 +11,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class AccountService {
@@ -66,5 +68,15 @@ public class AccountService {
         return accountStore;
     }
 
+    public static void displayAccountStore() {
+        AccountStore accountStore = loadAccountStore();
+        List<Account> accounts = accountStore.getAccounts();
+        accounts.stream()
+                .sorted(Comparator.comparing(Account::getAccountNumber))
+                .forEach(e -> System.out.println(e.getAccountNumber()
+                        + " " + e.getBalance()
+                        + " " + e.getOwner().getLastName()
+                        + " " + e.getOwner().getFirstName()));
+    }
 
 }

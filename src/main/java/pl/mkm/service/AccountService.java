@@ -27,9 +27,9 @@ public class AccountService {
 
     public static void removeAccount(Account account) {
         AccountStore accountStore = loadAccountStore();
-        List <Account> list = accountStore.getAccounts();
+        List<Account> list = accountStore.getAccounts();
         List<Account> listWithRemovedAccount = list.stream()
-                .filter(e -> e.getAccountNumber()!= account.getAccountNumber())
+                .filter(e -> e.getAccountNumber() != account.getAccountNumber())
                 .collect(Collectors.toList());
         accountStore.setAccounts(listWithRemovedAccount);
         saveToFile(accountStore);
@@ -103,7 +103,11 @@ public class AccountService {
         Account accountTo = accountStore.getAccountByNumber(accountNumberTo);
         System.out.print("money: ");
         double moneyToTransfer = cin.nextDouble();
-
+        while (moneyToTransfer > accountFrom.getBalance()) {
+            System.out.println("you don't have enough money!");
+            System.out.println("money:");
+            moneyToTransfer = cin.nextDouble();
+        }
         removeAccount(accountFrom);
         removeAccount(accountTo);
 

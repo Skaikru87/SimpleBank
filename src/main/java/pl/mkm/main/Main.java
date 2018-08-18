@@ -21,7 +21,7 @@ public class Main {
         if (client.isRights()) {
             MenuService.adminMenu(clientStore, accountStore);
         } else {
-            MenuService.userMenu(clientStore, accountStore);
+            MenuService.userMenu(clientStore, accountStore, client);
         }
 
     }

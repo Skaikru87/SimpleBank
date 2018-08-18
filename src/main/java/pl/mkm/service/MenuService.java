@@ -78,11 +78,12 @@ public class MenuService {
         }
     }
 
-    public static void userMenu(ClientStore clientStore, AccountStore accountStore) {
+    public static void userMenu(ClientStore clientStore, AccountStore accountStore, Client client) {
         System.out.println("what you want to do?\n" +
                 "1-display clients\n" +
                 "2-display accounts\n" +
-                "3-exit");
+                "3-transfer money\n" +
+                "4-exit");
         Scanner in = new Scanner(System.in);
         boolean exit = true;
         while (exit) {
@@ -97,6 +98,10 @@ public class MenuService {
                     System.out.println("what you want to do?");
                     break;
                 case 3:
+                    AccountService.transferMoney(client, accountStore);
+                    System.out.println("what you want to do?");
+                    break;
+                case  4:
                     exit = false;
                     break;
                 default:
